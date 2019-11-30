@@ -13,7 +13,7 @@ PORT = 7000
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((HOST,PORT))
-s.listen()
+s.listen(1)
 sock_conn,addr = s.accept()
 
 sock_conn.sendall(bytes('helloclient','utf-8'))
@@ -28,8 +28,14 @@ while(work):
         sock_conn.sendall(bytes('triggered_signup',encoding='utf-8'))
         #reg info
         user_name = str(sock_conn.recv(1024),'utf-8')
+        print('get username.')
+        sock_conn.sendall(bytes('got_username',encoding='utf-8'))
         password = str(sock_conn.recv(1024),'utf-8')
+        print('get password.')
+        sock_conn.sendall(bytes('got_password',encoding='utf-8'))
         ip_address = str(sock_conn.recv(1024),'utf-8')
+        print('get ip.')
+        sock_conn.sendall(bytes('got_ip',encoding='utf-8'))
         print('search.')
         sql = ("SELECT * FROM login_info WHERE user_name='%s'" %(user_name))
         cursor.execute(sql)
