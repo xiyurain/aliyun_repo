@@ -23,24 +23,28 @@ work = True
 while(work):
     command = str(sock_conn.recv(1024),'utf-8')
     if command == 'signup':
+        print('sign up.')
         #注册
         sock_conn.sendall(bytes('triggered_signup',encoding='utf-8'))
         #获取用户注册信息
         user_name = str(sock_conn.recv(1024),'utf-8')
         password = str(sock_conn.recv(1024),'utf-8')
         ip_address = str(sock_conn.recv(1024),'utf-8')
-        
+        print('search.')
         sql = ("SELECT * FROM login_info WHERE user_name='%s'" %(user_name))
         cursor.execute(sql)
         if(cursor.rowcount):
             sock_conn.sendall(bytes('duplicated',encoding='utf-8'))
             continue
         else:
+            print('insert.')
             sql = ("INSERT INTO login_info(user_name,password,ip_address)VALUES('%s','%s','%s')" % (user_name,password,ip_address))
             #数据库插入用户注册信息
             try:
                 cursor.execute(sql)
+                print('execute.')
                 db_conn.commit()
+                print('commit.')
             except:
                 db_conn.rollback()
             sock_conn.sendall(bytes('stored',encoding='utf-8'))
