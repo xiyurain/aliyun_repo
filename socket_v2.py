@@ -1,5 +1,5 @@
 import pymysql
-db_conn = pymysql.connect("localhost","root","hitsz180110718","test0")
+db_conn = pymysql.connect("localhost","root","rxy0191","test0")
 cursor = db_conn.cursor()
 
 import socket
@@ -37,7 +37,7 @@ while(work):
             continue
         else:
             sql = ("INSERT INTO login_info(user_name,password,ip_address)VALUES('%s','%s','%s')" % (user_name,password,ip_address))
-            #insert
+            #数据库插入用户注册信息
             try:
                 cursor.execute(sql)
                 db_conn.commit()
@@ -46,12 +46,17 @@ while(work):
             sock_conn.sendall(bytes('stored',encoding='utf-8'))
         
     elif command == 'login':
+        print("logging...")
         #login
         sock_conn.sendall(bytes('triggered_login',encoding='utf-8'))
-        #login_info
+        #log_info
         user_name = str(sock_conn.recv(1024),'utf-8')
+        sock_conn.sendall(bytes('got_username',encoding='utf-8'))
         password = str(sock_conn.recv(1024),'utf-8')
+        sock_conn.sendall(bytes('got_password',encoding='utf-8'))
         ip_address = str(sock_conn.recv(1024),'utf-8')
+        sock_conn.sendall(bytes('got_ip',encoding='utf-8'))
+        print("sqling")
         
         sql = ("SELECT * FROM login_info WHERE user_name='%s' AND password='%s'" %(user_name,password))
         cursor.execute(sql)
@@ -71,3 +76,4 @@ while(work):
         sock_conn.sendall(bytes('closing',encoding='utf-8'))
     else:
         print("Error detected.")
+        break
