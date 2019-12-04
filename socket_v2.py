@@ -37,7 +37,7 @@ while(work):
             continue
         else:
             sql = ("INSERT INTO login_info(user_name,password,ip_address)VALUES('%s','%s','%s')" % (user_name,password,ip_address))
-            #数据库插入用户注册信息
+            #insert
             try:
                 cursor.execute(sql)
                 db_conn.commit()
@@ -46,9 +46,9 @@ while(work):
             sock_conn.sendall(bytes('stored',encoding='utf-8'))
         
     elif command == 'login':
-        #登陆
+        #login
         sock_conn.sendall(bytes('triggered_login',encoding='utf-8'))
-        #获取用户登录信息
+        #login_info
         user_name = str(sock_conn.recv(1024),'utf-8')
         password = str(sock_conn.recv(1024),'utf-8')
         ip_address = str(sock_conn.recv(1024),'utf-8')
