@@ -1,5 +1,5 @@
 import pymysql
-db_conn = pymysql.connect("localhost","root","rxy0191","test0")
+db_conn = pymysql.connect("localhost","root","hitsz180110718","test0")
 cursor = db_conn.cursor()
 
 import socket
