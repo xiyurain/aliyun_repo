@@ -135,7 +135,8 @@ while(work):
             cursor.execute(sql)
         except:
             print("Error: unable to fetch data")
-                
+        print(cursor.rowcount)
+        
         # 获取所有记录列表
         sock_conn.sendall(bytes(str(cursor.rowcount),encoding='utf-8'))
         results = cursor.fetchall()
@@ -144,10 +145,10 @@ while(work):
             socket_verify('ready',sock_conn)
             row_str = []
             for item in row:
-                #print(type(item))
+                print(type(item))
                 row_str.append(str(item))
             line = '\t'.join(row_str)
-            #print(line)
+            print(line)
             socket_send(line,sock_conn)
             
             
