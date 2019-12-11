@@ -118,6 +118,7 @@ while(work):
                 VALUES('%s','%s','%s','%s','%s')" % \
                 (file_name,file_size,uploader,sharetime,category))
         #数据库插入用户注册信息
+        print(sql)
         try:
             cursor.execute(sql)
             db_conn.commit()
