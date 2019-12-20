@@ -1,13 +1,13 @@
 import pymysql
-db_conn = pymysql.connect("localhost","root","rxy0191","test0")
+db_conn = pymysql.connect("localhost","root","hitsz180110718","test0")
 cursor = db_conn.cursor()
 
 import socket
-#HOST = '172.17.170.11'
+HOST = '172.17.170.11'
 #HOST = '10.249.93.167'
-HOST = '10.250.151.171'
-#PORT = 7000
-PORT = 65432
+#HOST = '10.250.151.171'
+PORT = 7000
+#PORT = 65432
 
 def socket_verify(string, conn):
     data = conn.recv(1024)
