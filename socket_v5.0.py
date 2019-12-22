@@ -215,7 +215,7 @@ while(True):
                 db_conn.commit()
                 socket_send('is_removed',sock_conn)
             else:
-                socket_send('not_found')
+                socket_send('not_found',sock_conn)
 
 
         elif command == 'connect_close':
