@@ -321,7 +321,10 @@ class myThread (threading.Thread):
     def run(self):
         print ("开始线程：" + self.name)
         while True:
-            self.cli_conn.set_connection()
+            try:
+                self.cli_conn.set_connection()
+            except:
+                continue
         print ("退出线程：" + self.name)
 
 
